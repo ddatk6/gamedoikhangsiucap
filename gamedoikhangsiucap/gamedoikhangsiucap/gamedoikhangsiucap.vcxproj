@@ -108,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,23 +134,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\gameobject.cpp" />
+    <ClCompile Include="src\ECS\AnimationComponent.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\mapend.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\ECS\AnimationComponent.h" />
+    <ClInclude Include="src\ECS\ColliderComponent.h" />
+    <ClInclude Include="src\ECS\Components.h" />
+    <ClInclude Include="src\ECS\Constants.h" />
+    <ClInclude Include="src\ECS\ECS.h" />
+    <ClInclude Include="src\ECS\GravityComponent.h" />
+    <ClInclude Include="src\ECS\Player1Controller.h" />
+    <ClInclude Include="src\ECS\Player2Controller.h" />
+    <ClInclude Include="src\ECS\StatusBarComponent.h" />
+    <ClInclude Include="src\ECS\TransformComponent.h" />
+    <ClInclude Include="src\ECS\SpriteComponent.h" />
     <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\gameobject.h" />
-    <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\mapend.h" />
     <ClInclude Include="src\TextureManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="assest\map.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assest\map.png" />
+    <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

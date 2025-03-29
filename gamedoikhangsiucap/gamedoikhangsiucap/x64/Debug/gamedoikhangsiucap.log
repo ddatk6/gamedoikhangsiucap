@@ -1,2 +1,33 @@
-﻿  Map.cpp
+﻿  AnimationComponent.cpp
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\TransformComponent.h(47,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/ECS/AnimationComponent.cpp')
+  
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\TransformComponent.h(59,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/ECS/AnimationComponent.cpp')
+  
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(38,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(40,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  game.cpp
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\TransformComponent.h(47,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/game.cpp')
+  
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\TransformComponent.h(59,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'src/game.cpp')
+  
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:         with
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:         [
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:             _Ty=int
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:         ]
+  (compiling source file 'src/game.cpp')
+      C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28):
+      the template instantiation context (the oldest one first) is
+          C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(43,10):
+          see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int>(int &&,int &&,int &&,int &&)' being compiled
+          with
+          [
+              T=TransformComponent
+          ]
+  
+  Generating Code...
   gamedoikhangsiucap.vcxproj -> C:\Users\hi!\source\repos\gamedoikhangsiucap\x64\Debug\gamedoikhangsiucap.exe

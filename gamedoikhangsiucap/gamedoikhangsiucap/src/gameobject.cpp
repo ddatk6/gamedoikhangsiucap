@@ -10,8 +10,8 @@ Gameobject::Gameobject(const char* texturesheet, int x, int y) {
 }
 
 void Gameobject::Update() {
-	xpos++;
-	ypos++;
+	xpos+=2;
+	ypos+=2;
 	
 
 	scrRect.h = 64;//chiều cao

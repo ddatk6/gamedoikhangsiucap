@@ -8,10 +8,10 @@ public:
 	~Gameobject();
 	void Update();
 	void Render();
+	int xpos,ypos;
 
 
 private:
-	int xpos,ypos;
 
 	SDL_Texture* objTexture;
 	SDL_Rect scrRect, destRect;

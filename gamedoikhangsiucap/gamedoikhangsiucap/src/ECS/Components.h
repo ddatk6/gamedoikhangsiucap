@@ -1,0 +1,10 @@
+#pragma once
+#include"ECS.h"
+#include"TransformComponent.h"
+#include"SpriteComponent.h"
+#include"Player1Controller.h"
+#include"ColliderComponent.h"
+#include"Player2Controller.h"
+#include"GravityComponent.h"
+#include"StatusBarComponent.h"
+#include"AnimationComponent.h"

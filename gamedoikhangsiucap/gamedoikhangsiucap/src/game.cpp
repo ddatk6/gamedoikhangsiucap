@@ -1,27 +1,27 @@
 ﻿#include "game.h"
 #include "TextureManager.h"
-#include "gameobject.h"
-#include"Map.h"
-#include"ECS.h"
-#include"Components.h"
+#include "mapend.h"
+#include "ECS/Components.h"
+#include "Vector2D.h"
+#include "Collision.h"
 
-Gameobject* player1 ;
-Gameobject* player2;
+
 
 Map* map;
-SDL_Renderer* Game::renderer = nullptr;
-
 Manager manager;
-auto& newPlayer(manager.addEntity());
+SDL_Renderer* Game::renderer = nullptr;
+auto& player1(manager.addEntity());
+auto& player2(manager.addEntity());
+
+auto& uiPlayer1(manager.addEntity());
+auto& uiPlayer2(manager.addEntity());
 
 SDL_Event Game::event;
 using namespace std;
 Game::Game()
-{
-}
+{}
 Game::~Game()
-{
-}
+{}
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
@@ -30,30 +30,38 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-		cout << " Subsystems Initialised!..." << endl;
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-		if (window) {
-			cout << "Window created!" << endl;
-		}
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer) {
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			cout << "Renderer created!" << endl;
 			isRunning = true;
 
 		}
-		else {
-			isRunning = false;
-
-		}
 	}
-	map->LoadMap();
-	player1 = new Gameobject("assest/sasukerun.png",0,0);
-	player2 = new Gameobject("assest/kakashirun.png", 50, 50);
-	//map = new Map();
-	//newPlayer.addComponent<PositionComponent>();
-	//newPlayer.getComponent<PositionComponent>().setPos(500, 500);
+	
+	map = new Map(renderer, "assest/mapend.png");
+	player1.addComponent<TransformComponent>(100, 100 , 50, 64);
+	player1.addComponent<SpriteComponent>("assest/naruto.png", 0, 250, 8,200 );
+	player1.addComponent<Player1Controller>();
+	player1.addComponent<GravityComponent>();
+	player1.addComponent<AnimationComponent>();
 
+
+	player2.addComponent<TransformComponent>(300, 100, 34, 64);
+	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200 );
+	player2.addComponent<Player2Controller>();
+	player2.addComponent<GravityComponent>();
+	player2.addComponent<AnimationComponent>();
+
+
+	uiPlayer1.addComponent<StatusBarUIComponent>(LEFT);
+	// Liên kết UI của Player1 với entity player1
+	uiPlayer1.getComponent<StatusBarUIComponent>().linkedEntity = &player1;
+	// Bạn cũng có thể cập nhật currentHP, currentMana ở đây nếu cần
+
+	// Tạo UI cho Player2: thanh hiển thị ở bên phải
+	uiPlayer2.addComponent<StatusBarUIComponent>(RIGHT);
+	uiPlayer2.getComponent<StatusBarUIComponent>().linkedEntity = &player2;
 }
 void Game::handleEvents()
 {
@@ -73,18 +81,17 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	player1->Update();
-	player2->Update();
-	//manager.update();
-	//cout << newPlayer.getComponent<PositionComponent>().x() << "," << newPlayer.getComponent<PositionComponent>().y() << endl;
-
+	manager.refresh();
+	manager.update();
+	
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	player1->Render();
-	player2->Render();
+	map->DrawMap();
+	manager.draw();
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -93,8 +100,5 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-	cout << "Game cleaned" << endl;
-
-
 
 }
