@@ -91,6 +91,8 @@ private:
 	vector<unique_ptr<Entity>> entities;
 
 public:
+	
+
 	void update() {
 		for (auto& e : entities) e->update();
 
@@ -111,5 +113,8 @@ public:
 		unique_ptr<Entity> uPtr{ e };
 		entities.emplace_back(move(uPtr));
 		return *e;
+	}
+	const std::vector<std::unique_ptr<Entity>>& getEntities() const {
+		return entities;
 	}
 };

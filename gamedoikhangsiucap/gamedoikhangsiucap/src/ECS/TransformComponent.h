@@ -42,21 +42,21 @@ public:
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
 
-		// Kiểm tra nếu nhân vật chạm đất
+		
 		if (position.y + height * scale >= 600) {
-			position.y = 600 - height * scale; // Đặt nhân vật đúng trên mặt đất  
+			position.y = 600 - height * scale;  
 			velocity.y = 0;
-			onGround = true; // Cho phép nhảy lại
+			onGround = true; 
 		}
 		else {
-			velocity.y += 0.5; // Áp dụng trọng lực
+			velocity.y += 0.5; 
 			onGround = false;  // Không cho phép nhảy khi đang trên không
 		}
 		if (position.x < 0) {
 			position.x = 0; // Không đi ra ngoài bên trái
 		}
-		if (position.x + width * scale > 1600) { // 800 là chiều rộng màn hình
-			position.x = 1600 - width * scale; // Không đi ra ngoài bên phải
+		if (position.x + width * scale > 1200) { // 800 là chiều rộng màn hình
+			position.x = 1200 - width * scale; // Không đi ra ngoài bên phải
 		}
 	}
 	

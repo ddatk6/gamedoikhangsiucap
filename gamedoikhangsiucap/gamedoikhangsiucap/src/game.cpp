@@ -45,13 +45,16 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player1.addComponent<Player1Controller>();
 	player1.addComponent<GravityComponent>();
 	player1.addComponent<AnimationComponent>();
+	player1.addComponent<HealthEnergyComponent>();
 
 
-	player2.addComponent<TransformComponent>(300, 100, 34, 64);
+	player2.addComponent<TransformComponent>(1000, 100, 34, 64);
 	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200 );
 	player2.addComponent<Player2Controller>();
 	player2.addComponent<GravityComponent>();
 	player2.addComponent<AnimationComponent>();
+	player2.addComponent<HealthEnergyComponent>();
+
 
 
 	uiPlayer1.addComponent<StatusBarUIComponent>(LEFT);
@@ -83,6 +86,7 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
+	Collision::checkCollisions(manager);
 	
 }
 

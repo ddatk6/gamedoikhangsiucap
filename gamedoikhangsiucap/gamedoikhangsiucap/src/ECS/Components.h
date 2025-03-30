@@ -8,3 +8,4 @@
 #include"GravityComponent.h"
 #include"StatusBarComponent.h"
 #include"AnimationComponent.h"
+#include"HealthEnergyComponent.h"

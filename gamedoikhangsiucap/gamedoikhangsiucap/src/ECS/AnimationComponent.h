@@ -13,6 +13,7 @@ class AnimationComponent : public Component
 public:
 	void init() override;
 	void update() override;
+
 private:
 	SpriteComponent* sprite;
 	TransformComponent* transform;

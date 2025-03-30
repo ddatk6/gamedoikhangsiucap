@@ -46,8 +46,8 @@ public:
 
 		/*srcRect.x = 0;
 		srcRect.y = 0;*/
-		srcRect.w = transform->width;
-		srcRect.h = transform->height;
+		/*srcRect.w = transform->width;
+		srcRect.h = transform->height;*/
 		
 	}
 	void update() override
@@ -59,8 +59,8 @@ public:
 		}
 		destRect.x =(int) transform->position.x;
 		destRect.y =(int) transform->position.y;
-		destRect.w = transform->width * transform->scale;
-		destRect.h = transform->height * transform->scale;
+		/*destRect.w = transform->width * transform->scale;
+		destRect.h = transform->height * transform->scale;*/
 		if (transform->velocity.x < 0)
 			Flip = SDL_FLIP_HORIZONTAL;
 		else if (transform->velocity.x > 0)
