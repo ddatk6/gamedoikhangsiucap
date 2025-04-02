@@ -11,7 +11,7 @@ Map::~Map() {
 }
 
 void Map::DrawMap() {
-    SDL_Rect destRect = {0, 0, 1200, 600};
+    SDL_Rect destRect = {0, 0, 1600, 800};
     SDL_RenderGetViewport(renderer, &destRect);
 
     SDL_RenderCopy(renderer, backgroundTexture, NULL, &destRect);

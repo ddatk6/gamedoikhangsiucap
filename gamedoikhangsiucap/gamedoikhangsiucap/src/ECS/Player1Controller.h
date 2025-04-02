@@ -2,6 +2,7 @@
 #include "../game.h"
 #include "ECS.h"
 #include "Components.h"
+#include "HealthEnergyComponent.h"
 
 class Player1Controller : public Component {
 public:
@@ -14,6 +15,18 @@ public:
     }
 
     void update() override {
+        if (entity->hasComponent<HealthEnergyComponent>()) {
+            auto& he = entity->getComponent<HealthEnergyComponent>();
+            he.updateStun();  // Cập nhật trạng thái stun
+            if (he.stunned) {
+                // Không xử lý input khi bị stun
+                transform->velocity.x = 0;
+                transform->velocity.y = 0;
+                return;
+            }
+        }
+
+
         const Uint8* state = SDL_GetKeyboardState(NULL);
 
         // Điều khiển di chuyển ngang

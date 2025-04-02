@@ -152,7 +152,6 @@
     <ClInclude Include="src\ECS\HealthEnergyComponent.h" />
     <ClInclude Include="src\ECS\Player1Controller.h" />
     <ClInclude Include="src\ECS\Player2Controller.h" />
-    <ClInclude Include="src\ECS\SkillSystem.h" />
     <ClInclude Include="src\ECS\StatusBarComponent.h" />
     <ClInclude Include="src\ECS\TransformComponent.h" />
     <ClInclude Include="src\ECS\SpriteComponent.h" />

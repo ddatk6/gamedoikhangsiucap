@@ -22,7 +22,42 @@ Game::Game()
 {}
 Game::~Game()
 {}
+void Game::showOpeningImage() {
+	// Tải texture của hình ảnh mở đầu
+	SDL_Texture* openingTexture = TextureManager::LoadTexture("assest/start.png");
+	if (!openingTexture) {
+		std::cout << "Không thể tải hình ảnh mở đầu!" << std::endl;
+		return;
+	}
 
+	// Lấy kích thước của viewport để render toàn màn hình
+	SDL_Rect destRect;
+	SDL_RenderGetViewport(renderer, &destRect);
+
+	bool splashRunning = true;
+	SDL_Event event;
+
+	// Vòng lặp hiển thị splash screen cho đến khi người dùng bấm phím hoặc click chuột
+	while (splashRunning) {
+		// Kiểm tra các sự kiện
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				splashRunning = false;
+				isRunning = false;  // Nếu muốn thoát game luôn
+			}
+			if (event.type == SDL_KEYDOWN || event.type == SDL_MOUSEBUTTONDOWN) {
+				splashRunning = false;  // Khi có input, thoát khỏi splash screen
+			}
+		}
+		// Render splash screen
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, openingTexture, NULL, &destRect);
+		SDL_RenderPresent(renderer);
+	}
+
+	// Giải phóng texture sau khi hiển thị xong
+	SDL_DestroyTexture(openingTexture);
+}
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
@@ -38,7 +73,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		}
 	}
-	
+	showOpeningImage();
 	map = new Map(renderer, "assest/mapend.png");
 	player1.addComponent<TransformComponent>(100, 100 , 50, 64);
 	player1.addComponent<SpriteComponent>("assest/naruto.png", 0, 250, 8,200 );
@@ -48,7 +83,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player1.addComponent<HealthEnergyComponent>();
 
 
-	player2.addComponent<TransformComponent>(1000, 100, 34, 64);
+	player2.addComponent<TransformComponent>(1500, 100, 34, 64);
 	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200 );
 	player2.addComponent<Player2Controller>();
 	player2.addComponent<GravityComponent>();
@@ -86,7 +121,11 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	Collision::checkCollisions(manager);
+	/*if (Collision::AABB(player1.getComponent<SpriteComponent>().destRect,
+		player2.getComponent<SpriteComponent>().destRect)) {
+		player2.getComponent<HealthEnergyComponent>().decreaseHealth();
+	}*/
+
 	
 }
 

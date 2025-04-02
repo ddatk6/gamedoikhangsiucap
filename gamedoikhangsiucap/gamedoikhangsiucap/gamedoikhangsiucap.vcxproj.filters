@@ -50,9 +50,6 @@
     <ClInclude Include="src\ECS\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\TransformComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ECS\SpriteComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -86,8 +83,8 @@
     <ClInclude Include="src\ECS\HealthEnergyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\SkillSystem.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\ECS\TransformComponent.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

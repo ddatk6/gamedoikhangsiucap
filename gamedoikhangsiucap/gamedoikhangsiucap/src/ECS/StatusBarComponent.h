@@ -14,8 +14,8 @@ class StatusBarUIComponent : public Component {
 public:
     int maxHP = 1000;
     int currentHP = 1000;
-    int maxEnergy = 100;
-    int currentEnergy = 100;
+    int maxEnergy = 1000;
+    int currentEnergy = 1000;
 
     SDL_Rect hpBar;
     SDL_Rect energyBar; // dùng energyBar để hiển thị năng lượng

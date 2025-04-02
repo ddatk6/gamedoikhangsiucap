@@ -72,5 +72,9 @@ public:
 	{
 		TextureManager::Draw(texture, srcRect, destRect, Flip );
 	}
+	SDL_Texture* getTexture() const
+	{
+		return texture;
+	}
 
 };

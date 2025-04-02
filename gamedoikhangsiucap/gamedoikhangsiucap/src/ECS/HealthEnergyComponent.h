@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Components.h"
+//#include"SkillSystem.h"
 
 class HealthEnergyComponent : public Component {
 public:
@@ -7,21 +8,53 @@ public:
     int maxEnergy, currentEnergy;
     bool stunned;
     Uint32 stunStartTime;
-    Uint32 stunDelay; // thời gian bị stun (ms)
+    Uint32 stunDelay;
+    Uint32 lastHitTime;
+    Uint32 hitDelay; 
 
     HealthEnergyComponent()
         : maxHP(1000), currentHP(1000),
-        maxEnergy(100), currentEnergy(100),
-        stunned(false), stunStartTime(0), stunDelay(1000)
+        maxEnergy(1000), currentEnergy(1000),
+        stunned(false), stunStartTime(0), stunDelay(600), lastHitTime(0), hitDelay(600)
     {
     }
 
-    void decreaseHealth(int amount) {
+    void decreaseHealth(double amount) {
         currentHP -= amount;
         if (currentHP < 0) currentHP = 0;
     }
-    void decreaseEnergy(int amount) {
+    void tryDecreaseHealth(int damage) {
+        Uint32 currentTime = SDL_GetTicks();
+        if (currentTime - lastHitTime >= hitDelay) {
+            decreaseHealth(damage);
+            lastHitTime = currentTime;
+            // Set trạng thái stun
+            stunned = true;
+            stunStartTime = currentTime;
+        }
+    }
+
+    // Hàm update để reset trạng thái stun sau delay
+    void updateStun() {
+        if (stunned) {
+            Uint32 currentTime = SDL_GetTicks();
+            if (currentTime - stunStartTime >= stunDelay) {
+                stunned = false;
+            }
+        }
+    }
+     void decreaseEnergy(double amount) {
         currentEnergy -= amount;
         if (currentEnergy < 0) currentEnergy = 0;
     }
+     void increaseEnergy(double amount) {
+         currentEnergy += amount;
+         if (currentEnergy >= maxEnergy) currentEnergy = maxEnergy;
+     }
+     bool hasEnoughEnergy(double energyCost) const {
+         return currentEnergy >= energyCost; // Trả về true nếu năng lượng đủ, ngược lại false
+     }
+
+     
+
 };

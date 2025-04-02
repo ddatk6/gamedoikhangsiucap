@@ -43,8 +43,8 @@ public:
 		position.y += velocity.y * speed;
 
 		
-		if (position.y + height * scale >= 600) {
-			position.y = 600 - height * scale;  
+		if (position.y + height * scale >= 800) {
+			position.y = 800 - height * scale;  
 			velocity.y = 0;
 			onGround = true; 
 		}
@@ -55,8 +55,8 @@ public:
 		if (position.x < 0) {
 			position.x = 0; // Không đi ra ngoài bên trái
 		}
-		if (position.x + width * scale > 1200) { // 800 là chiều rộng màn hình
-			position.x = 1200 - width * scale; // Không đi ra ngoài bên phải
+		if (position.x + width * scale > 1600) { // 800 là chiều rộng màn hình
+			position.x = 1600 - width * scale; // Không đi ra ngoài bên phải
 		}
 	}
 	
