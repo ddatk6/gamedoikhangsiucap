@@ -11,7 +11,7 @@ public:
 	int width = 50;
 	int height = 48;
 	int scale = 3;
-	int speed = 1;
+	int speed = 2;
     bool onGround=false ;
 
 
@@ -50,13 +50,13 @@ public:
 		}
 		else {
 			velocity.y += 0.5; 
-			onGround = false;  // Không cho phép nhảy khi đang trên không
+			onGround = false;
 		}
 		if (position.x < 0) {
-			position.x = 0; // Không đi ra ngoài bên trái
+			position.x = 0; 
 		}
-		if (position.x + width * scale > 1600) { // 800 là chiều rộng màn hình
-			position.x = 1600 - width * scale; // Không đi ra ngoài bên phải
+		if (position.x + width * scale > 1600) { 
+			position.x = 1600 - width * scale; 
 		}
 	}
 	

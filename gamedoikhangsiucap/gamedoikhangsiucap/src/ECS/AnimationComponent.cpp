@@ -1,7 +1,7 @@
 ﻿
 #include"AnimationComponent.h"
 #include"../Collision.h"
-
+#include"SDL_mixer.h"
 Uint32 damageEffectTimePlayer1 = 0;
 Uint32 damageEffectTimePlayer2 = 0;
 
@@ -15,16 +15,35 @@ void AnimationComponent::init()
 	lastFrameTime = SDL_GetTicks();
 	skillPhase = -1;
 	hitStunTime = 0;
+	
 
 	for (int i = 0; i < MAX_ACTIONS; ++i) {
 		actionCooldowns[i] = 0; 
+	}
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: "
+			<< Mix_GetError() << std::endl;
+	}
+	else {
+		// Mở thành công, giờ mới load âm thanh
+		Mix_AllocateChannels(16); // Allocate 16 channels for sound effects
+		moveSound = Mix_LoadWAV("assest/chay.wav");
+		cutSound = Mix_LoadWAV("assest/chem.wav");
+		punchSound = Mix_LoadWAV("assest/dam.wav");
+		hurtSound = Mix_LoadWAV("assest/hurt.wav");
+		rasenganSound = Mix_LoadWAV("assest/rasengan3.wav");
+		ChidoriSound = Mix_LoadWAV("assest/chidori.wav");
+		K_O = Mix_LoadWAV("assest/k.o.wav");
+		if (!moveSound || !cutSound || !punchSound || !hurtSound || !rasenganSound || !ChidoriSound || !K_O) {
+			std::cout << "Failed to load sound effects: " << Mix_GetError() << std::endl;
+		}
 	}
 	
 	
 }
 
 void AnimationComponent::update() {
-
+	
 
 
 
@@ -42,67 +61,73 @@ void AnimationComponent::update() {
 		}
 	}
 	if (isPlayer1) {
-		if (isPlayer1 && keyState[SDL_SCANCODE_SPACE] && skillPhase == -1 &&
-			currentTime >= actionCooldowns[7] &&
-			entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
-			skillPhase = 0;
-			currentFrame = 0;
-			lastFrameTime = SDL_GetTicks();
+		Player1Controller& p1Controller = entity->getComponent<Player1Controller>();
 
-		}
-		if (skillPhase != -1) {
-			if (skillPhase == 0) actionIndex = 7;
-
-			else if (skillPhase == 1) {
-				actionIndex = 8;
-
-			}
-			else if (skillPhase == 2) {
-				actionIndex = 9;
+		// Nếu chưa thực hiện chiêu đặc biệt, kiểm tra kích hoạt bằng KP_0
+		if (skillPhase == -1) {
+			if (keyState[SDL_SCANCODE_SPACE] && (currentTime >= actionCooldowns[7]) &&
+				entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
+				skillPhase = 0;    // Bắt đầu chiêu đặc biệt, giai đoạn 0
+				currentFrame = 0;
+				Mix_PlayChannel(-1, rasenganSound, 0);
+				lastFrameTime = SDL_GetTicks();
 
 			}
 			else {
-				actionIndex = 10;
-				int dashSpeed = 8;
-				if (sprite->Flip == SDL_FLIP_NONE)
-					transform->velocity.x = dashSpeed;
-				else
-					transform->velocity.x = -dashSpeed;
-			}
-
-
-		}
-		else {
-			if (isPlayer1) {
-				Player1Controller& p1Controller = entity->getComponent<Player1Controller>();
-				if (!transform->onGround) {
+				// Xử lý input bình thường khi không thực hiện chiêu
+				if (!transform->onGround)
 					actionIndex = 1;
-				}
 				else if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D]) {
 					actionIndex = 0;
+					Mix_PlayChannel(-1, moveSound, 0);
 				}
-				else if (keyState[SDL_SCANCODE_S]) {
+				else if (keyState[SDL_SCANCODE_S])
 					actionIndex = 2;
-				}
 				else if (keyState[SDL_SCANCODE_J] && (currentTime >= actionCooldowns[3]) &&
 					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
 					actionIndex = 3;
-
+					Mix_PlayChannel(-1, punchSound, 0);
 				}
 				else if (keyState[SDL_SCANCODE_K] && (currentTime >= actionCooldowns[5]) &&
 					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
 					actionIndex = 5;
-
+					Mix_PlayChannel(-1, punchSound, 0);
 				}
 				else if (keyState[SDL_SCANCODE_L] && (currentTime >= actionCooldowns[6]) &&
 					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
 					actionIndex = 6;
-
+					Mix_PlayChannel(-1, punchSound, 0);
+					
+					
 				}
-
 
 			}
 		}
+		else {
+			if (entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
+
+				if (skillPhase == 0)
+					actionIndex = 7;
+				else if (skillPhase == 1) {
+					actionIndex = 8;
+				}
+				else if (skillPhase == 2) {
+					actionIndex = 9;
+				}
+				else if (skillPhase == 3) {
+					actionIndex = 10;
+					// Bạn có thể bổ sung nếu có thêm giai đoạn ở đây,
+					// và sau khi đạt đến số giai đoạn mong muốn, reset skillPhase về -1
+					int dashSpeed = 9;
+					if (sprite->Flip == SDL_FLIP_NONE)
+						transform->velocity.x = dashSpeed;
+					else
+						transform->velocity.x = -dashSpeed;
+				}
+			}
+		}
+	
+		
 		if (currentFrame == Player1Constants::CHARACTER_1_SPRITES[currentAction][Player1Constants::FRAME_COUNT] - 1) {
 			// Animation kết thúc, đặt thời gian hồi chiêu
 			actionCooldowns[currentAction] = currentTime + Player1Constants::CHARACTER_1_SPRITES[currentAction][Player1Constants::COOLDOWN];
@@ -117,6 +142,7 @@ void AnimationComponent::update() {
 				entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player2Constants::ENERGY_COST)) {
 				skillPhase = 0;    // Bắt đầu chiêu đặc biệt, giai đoạn 0
 				currentFrame = 0;
+				Mix_PlayChannel(-1, ChidoriSound, 0);
 				lastFrameTime = SDL_GetTicks();
 
 			}
@@ -124,19 +150,26 @@ void AnimationComponent::update() {
 				// Xử lý input bình thường khi không thực hiện chiêu
 				if (!transform->onGround)
 					actionIndex = 1;
-				else if (keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT])
+				else if (keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT]) {
 					actionIndex = 0;
+					Mix_PlayChannel(-1, moveSound, 0);
+				}
 				else if (keyState[SDL_SCANCODE_DOWN])
 					actionIndex = 2;
 				else if (keyState[SDL_SCANCODE_KP_1] && (currentTime >= actionCooldowns[3]) &&
-					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player2Constants::ENERGY_COST))
+					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player2Constants::ENERGY_COST)) {
 					actionIndex = 3;
+					Mix_PlayChannel(-1, cutSound, 0);
+				}
 				else if (keyState[SDL_SCANCODE_KP_2] && (currentTime >= actionCooldowns[5]) &&
-					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST))
+					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
 					actionIndex = 5;
+					Mix_PlayChannel(-1, cutSound, 0);
+				}
 				else if (keyState[SDL_SCANCODE_KP_3] && (currentTime >= actionCooldowns[6]) &&
 					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player2Constants::ENERGY_COST)) {
 					actionIndex = 6;
+					Mix_PlayChannel(-1, cutSound, 0);
 					int dashSpeed = 6;
 					if (sprite->Flip == SDL_FLIP_NONE)
 						transform->velocity.x = dashSpeed / 2;
@@ -147,18 +180,20 @@ void AnimationComponent::update() {
 			}
 		}
 		else {
-			// Nếu đang thực hiện chiêu đặc biệt, xử lý theo skillPhase
-			if (skillPhase == 0)
-				actionIndex = 7;
-			else if (skillPhase == 1) {
-				actionIndex = 8;
-				// Bạn có thể bổ sung nếu có thêm giai đoạn ở đây,
-				// và sau khi đạt đến số giai đoạn mong muốn, reset skillPhase về -1
-				int dashSpeed = 8;
-				if (sprite->Flip == SDL_FLIP_NONE)
-					transform->velocity.x = dashSpeed;
-				else
-					transform->velocity.x = -dashSpeed;
+			if (entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player2Constants::ENERGY_COST)) {
+
+				if (skillPhase == 0)
+					actionIndex = 7;
+				else if (skillPhase == 1) {
+					actionIndex = 8;
+					// Bạn có thể bổ sung nếu có thêm giai đoạn ở đây,
+					// và sau khi đạt đến số giai đoạn mong muốn, reset skillPhase về -1
+					int dashSpeed = 8;
+					if (sprite->Flip == SDL_FLIP_NONE)
+						transform->velocity.x = dashSpeed;
+					else
+						transform->velocity.x = -dashSpeed;
+				}
 			}
 		}
 		if (currentFrame == Player2Constants::CHARACTER_1_SPRITES[currentAction][Player2Constants::FRAME_COUNT] - 1) {
@@ -222,62 +257,81 @@ void AnimationComponent::update() {
 			if (Collision::AABB(player1.getComponent<SpriteComponent>().destRect,
 				player2.getComponent<SpriteComponent>().destRect)) {
 				if (damage > 0) {
-					// Gọi giảm máu cho player2
-					player2.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage);
-					damageEffectTimePlayer2 = currentTime;
-					player1.getComponent<HealthEnergyComponent>().increaseEnergy(1);
+					if (player2.getComponent<AnimationComponent>().currentAction != 2) {
+						player2.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage);
+						damageEffectTimePlayer2 = currentTime;
+						player1.getComponent<HealthEnergyComponent>().increaseEnergy(1);
+						Mix_PlayChannel(-1, hurtSound, 0);
+						
+
+					}
+					else {
+						player2.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage*0.3);
+						
+						player1.getComponent<HealthEnergyComponent>().increaseEnergy(1);
+					}
 				}
 			}
-			player1.getComponent<HealthEnergyComponent>().decreaseEnergy(energy / frameCount);
+			if (currentFrame == 0) {
+				player1.getComponent<HealthEnergyComponent>().decreaseEnergy(energy / frameCount);
+
+			}
 		}
 	}
 	if (player2.getComponent<HealthEnergyComponent>().hasEnoughEnergy(energy)) {
 		if (entity->hasComponent<Player2Controller>()) {
 			if (Collision::AABB(player2.getComponent<SpriteComponent>().destRect,
 				player1.getComponent<SpriteComponent>().destRect)) {
-				if (damage > 0 && entity->hasComponent<Player2Controller>()) {
-					// Gọi hàm decreaseHealth với chỉ số damage lấy từ constants
-					player1.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage);
-					damageEffectTimePlayer1 = currentTime;
-					player2.getComponent<HealthEnergyComponent>().increaseEnergy(1);
-
+				if (damage > 0 ) {
+					if (player1.getComponent<AnimationComponent>().currentAction != 2) {
+						player1.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage);
+						damageEffectTimePlayer1 = currentTime;
+						player2.getComponent<HealthEnergyComponent>().increaseEnergy(1);
+						Mix_PlayChannel(-1, hurtSound, 0);
+					}
+					else {
+						player1.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage * 0.3);
+						
+						player2.getComponent<HealthEnergyComponent>().increaseEnergy(1);
+					}
 				}
 
 			}
-			player2.getComponent<HealthEnergyComponent>().decreaseEnergy(energy / frameCount);
-
+			if (currentFrame == 0) {
+				player2.getComponent<HealthEnergyComponent>().decreaseEnergy(energy / frameCount);
+			}
 
 		}
 
 
 
 		if (entity->hasComponent<Player1Controller>()) {
-			
+
 			if (damageEffectTimePlayer1 > 0 && currentTime - damageEffectTimePlayer1 <= DAMAGE_EFFECT_DURATION) {
-				SDL_SetTextureColorMod(sprite->getTexture(), 255, 0, 0); // Đổi màu đỏ
-				actionIndex =11;
+				SDL_SetTextureColorMod(sprite->getTexture(), 255, 0, 0);
+				actionIndex = 11;
 			}
 			else {
-				SDL_SetTextureColorMod(sprite->getTexture(), 255, 255, 255); // Khôi phục màu ban đầu
+				SDL_SetTextureColorMod(sprite->getTexture(), 255, 255, 255);
 			}
 			if (actionIndex == 11) {
-				// Khung ảnh của trạng thái bị sát thương
+
 				srcX = spriteData[11][Player1Constants::SRC_X];
 				srcY = spriteData[11][Player1Constants::SRC_Y];
 			}
 		}
 
-		// Áp dụng hiệu ứng đỏ chỉ cho Player2 nếu họ nhận sát thương
+
 		if (entity->hasComponent<Player2Controller>()) {
 			if (damageEffectTimePlayer2 > 0 && currentTime - damageEffectTimePlayer2 <= DAMAGE_EFFECT_DURATION) {
-				SDL_SetTextureColorMod(sprite->getTexture(), 255, 0, 0); // Đổi màu đỏ
+				SDL_SetTextureColorMod(sprite->getTexture(), 255, 0, 0);
 				actionIndex = 9;
 			}
 			else {
-				SDL_SetTextureColorMod(sprite->getTexture(), 255, 255, 255); // Khôi phục màu ban đầu
+				SDL_SetTextureColorMod(sprite->getTexture(), 255, 255, 255);
 			}
 			if (actionIndex == 9) {
-				// Khung ảnh của trạng thái bị sát thương
+
 				srcX = spriteData[9][Player2Constants::SRC_X];
 				srcY = spriteData[9][Player2Constants::SRC_Y];
 			}
@@ -303,4 +357,40 @@ void AnimationComponent::update() {
 
 
 	}
+	
+
+	
 }
+void AnimationComponent::loadSounds() {
+	moveSound = Mix_LoadWAV("assest/chay.wav");
+	cutSound = Mix_LoadWAV("assest/chem.wav");
+	punchSound = Mix_LoadWAV("assest/dam.wav");
+	hurtSound = Mix_LoadWAV("assest/hurt.wav");
+	rasenganSound = Mix_LoadWAV("assest/rasengan3.wav");
+	ChidoriSound = Mix_LoadWAV("assest/chidori.wav");
+	K_O = Mix_LoadWAV("assest/k.o.wav");
+	if (!moveSound || !cutSound || !punchSound || !hurtSound || !rasenganSound || !ChidoriSound || !K_O) {
+		std::cout << "Failed to load sound effects: " << Mix_GetError() << std::endl;
+	}
+}
+void AnimationComponent::freeSounds() {
+	Mix_FreeChunk(moveSound);
+	Mix_FreeChunk(cutSound);
+	Mix_FreeChunk(punchSound);
+	Mix_FreeChunk(hurtSound);
+	Mix_FreeChunk(rasenganSound);
+	Mix_FreeChunk(ChidoriSound);
+	Mix_FreeChunk(K_O);
+	moveSound = nullptr;
+	cutSound = nullptr;
+	punchSound = nullptr;
+	hurtSound = nullptr;
+	rasenganSound = nullptr;
+	ChidoriSound = nullptr;
+	K_O = nullptr;
+}
+
+	
+	
+
+

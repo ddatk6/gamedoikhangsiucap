@@ -42,11 +42,11 @@ public:
             transform->velocity.x = -3;
         }
         else {
-            transform->velocity.x = 0; // Không nhấn gì → Đứng yên
+            transform->velocity.x = 0;
         }
 
         if (state[SDL_SCANCODE_UP] && transform->onGround) {
-            transform->velocity.y = -20;
+            transform->velocity.y = -15;
             transform->onGround = false;
         }
     

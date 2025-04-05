@@ -15,7 +15,7 @@ private:
 	TransformComponent* transform;
 
 	void initialize() {
-		init();  // G?i init() thông qua m?t hàm public
+		init();  
 	}
 	void update() override {
 		if (transform->velocity.y < terminalVelocity) {

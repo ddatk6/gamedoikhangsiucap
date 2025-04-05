@@ -1,6 +1,8 @@
 #include"game.h"
 #include"SDL_image.h"
+#include"SDL_mixer.h"
 Game* game = nullptr;
+
 int main(int argc, char* argv[]) {
 
 	const int FPS = 60; //toc do di chuyen

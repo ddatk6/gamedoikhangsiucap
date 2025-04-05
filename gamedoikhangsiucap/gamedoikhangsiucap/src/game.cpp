@@ -4,10 +4,13 @@
 #include "ECS/Components.h"
 #include "Vector2D.h"
 #include "Collision.h"
+#include"SDL_mixer.h"
+
 
 
 
 Map* map;
+
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 auto& player1(manager.addEntity());
@@ -16,12 +19,29 @@ auto& player2(manager.addEntity());
 auto& uiPlayer1(manager.addEntity());
 auto& uiPlayer2(manager.addEntity());
 
+enum GameState {
+	PLAYING,    // Trạng thái đang chơi
+	GAME_OVER   // Trạng thái kết thúc
+};
+
+// Enum lý do kết thúc
+enum EndReason {
+	PLAYER1_DEFEATED,
+	PLAYER2_DEFEATED
+};
+
+// Khởi tạo biến toàn cục
+GameState gameState = PLAYING; // Trạng thái mặc định
+EndReason endReason;
+
 SDL_Event Game::event;
 using namespace std;
+
 Game::Game()
 {}
 Game::~Game()
 {}
+
 void Game::showOpeningImage() {
 	// Tải texture của hình ảnh mở đầu
 	SDL_Texture* openingTexture = TextureManager::LoadTexture("assest/start.png");
@@ -57,7 +77,62 @@ void Game::showOpeningImage() {
 
 	// Giải phóng texture sau khi hiển thị xong
 	SDL_DestroyTexture(openingTexture);
+	
 }
+void Game::checkEndGame() {
+	if (player1.getComponent<HealthEnergyComponent>().currentHP <= 0) {
+		gameState = GAME_OVER;
+		endReason = PLAYER1_DEFEATED;
+	}
+	else if (player2.getComponent<HealthEnergyComponent>().currentHP <= 0) {
+		gameState = GAME_OVER;
+		endReason = PLAYER2_DEFEATED;
+	}
+}
+
+void Game::showEndingImage(SDL_Renderer* renderer, const std::string& filePath) {
+	SDL_Surface* tempSurface = IMG_Load(filePath.c_str());
+	if (!tempSurface) {
+		std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
+		return;
+	}
+
+	// Chuyển đổi Surface thành Texture
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(Game::renderer, tempSurface);
+	SDL_FreeSurface(tempSurface); // Giải phóng Surface sau khi tạo Texture
+
+	if (!texture) {
+		std::cout << "Failed to create texture: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+	// Định vị và kíc
+
+	// Đặt vị trí và kích thước cho hình ảnh
+	SDL_Rect destRect = { 0, 0, 1600, 800 };
+	SDL_RenderCopy(Game::renderer, texture, NULL, &destRect);
+
+
+	SDL_RenderPresent(Game::renderer);
+
+	// Giải phóng texture (nếu không sử dụng lại)
+	SDL_DestroyTexture(texture);
+}
+void Game::resetGame() {
+	player1.getComponent<HealthEnergyComponent>().currentHP = 1000;
+	player2.getComponent<HealthEnergyComponent>().currentHP = 1000;
+	player1.getComponent<HealthEnergyComponent>().currentEnergy = 1000;
+	player2.getComponent<HealthEnergyComponent>().currentEnergy = 1000;
+
+	player1.getComponent<TransformComponent>().position = { 100, 100 };
+	player2.getComponent<TransformComponent>().position = { 1400, 100 };
+
+	gameState = PLAYING;
+	koSoundPlayed = false;
+	std::cout << "Game đã được reset!" << std::endl;
+}
+
+
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
@@ -83,7 +158,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player1.addComponent<HealthEnergyComponent>();
 
 
-	player2.addComponent<TransformComponent>(1500, 100, 34, 64);
+	player2.addComponent<TransformComponent>(1400, 100, 34, 64);
 	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200 );
 	player2.addComponent<Player2Controller>();
 	player2.addComponent<GravityComponent>();
@@ -93,14 +168,40 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 
 	uiPlayer1.addComponent<StatusBarUIComponent>(LEFT);
-	// Liên kết UI của Player1 với entity player1
 	uiPlayer1.getComponent<StatusBarUIComponent>().linkedEntity = &player1;
-	// Bạn cũng có thể cập nhật currentHP, currentMana ở đây nếu cần
+	
 
-	// Tạo UI cho Player2: thanh hiển thị ở bên phải
+
 	uiPlayer2.addComponent<StatusBarUIComponent>(RIGHT);
 	uiPlayer2.getComponent<StatusBarUIComponent>().linkedEntity = &player2;
+	initAudio();
 }
+void Game::initAudio() {
+	// Khởi tạo SDL_mixer với tần số 44100Hz, định dạng mặc định, 2 kênh và chunk size 2048
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		std::cout << "SDL_mixer không khởi tạo được! Lỗi: " << Mix_GetError() << std::endl;
+	}
+	else {
+		std::cout << "SDL_mixer khởi tạo thành công!" << std::endl;
+	}
+
+	// Load nhạc nền từ file (đảm bảo file tồn tại tại đường dẫn này)
+	 bgMusic = Mix_LoadMUS("assest/naruto.mp3");
+	if (bgMusic == nullptr) {
+		std::cout << "Không load được nhạc nền! Lỗi: " << Mix_GetError() << std::endl;
+	}
+	else {
+		// Phát nhạc nền, lặp vô hạn (-1)
+		Mix_PlayMusic(bgMusic, -1);
+	}
+}
+
+void Game::cleanAudio() {
+	Mix_FreeMusic(bgMusic);
+	bgMusic = nullptr;
+	Mix_CloseAudio();
+}
+
 void Game::handleEvents()
 {
 
@@ -121,10 +222,34 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	/*if (Collision::AABB(player1.getComponent<SpriteComponent>().destRect,
-		player2.getComponent<SpriteComponent>().destRect)) {
-		player2.getComponent<HealthEnergyComponent>().decreaseHealth();
-	}*/
+	checkEndGame();
+	
+	if (gameState == GAME_OVER) {
+		
+
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				isRunning = false;
+			}
+			else if (gameState == GAME_OVER && event.type == SDL_KEYDOWN) {
+				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
+					resetGame();
+					gameState = PLAYING;
+				}
+				else if (event.key.keysym.sym == SDLK_ESCAPE) {
+					isRunning = false;
+				}
+			}
+			// Các xử lý sự kiện khác cho trạng thái PLAYING
+		}
+
+		return; // Dừng các hoạt động khác khi game kết thúc
+	}
+
+	// Logic bình thường
+
+	
 
 	
 }
@@ -134,7 +259,26 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	manager.draw();
-
+	
+	
+	if (gameState == GAME_OVER) {
+		if (!koSoundPlayed) {
+			auto& animationComponent = player1.getComponent<AnimationComponent>();
+			Mix_PlayChannel(-1, animationComponent.K_O, 0);
+			koSoundPlayed = true;
+		}
+		
+		if (endReason == PLAYER1_DEFEATED) {
+			showEndingImage(renderer, "assest/player2win.png");
+		}
+		else if (endReason == PLAYER2_DEFEATED) {
+			showEndingImage(renderer, "assest/player1win.png");
+		}
+	}
+	else {
+		map->DrawMap();
+		manager.draw();
+	}
 	SDL_RenderPresent(renderer);
 }
 

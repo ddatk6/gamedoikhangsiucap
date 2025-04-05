@@ -42,7 +42,7 @@ public:
 
         // Nhảy khi nhấn W (chỉ khi đang ở trên mặt đất)
         if (state[SDL_SCANCODE_W] && transform->onGround) {
-            transform->velocity.y = -20; // Điều chỉnh lực nhảy
+            transform->velocity.y = -15; // Điều chỉnh lực nhảy
             transform->onGround = false; // Không thể nhảy liên tục
         }
     
