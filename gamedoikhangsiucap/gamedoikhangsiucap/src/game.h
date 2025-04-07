@@ -25,7 +25,7 @@ public:
 		PLAYER2_DEFEATED
 	};
 
-	EndReason endReason; // Thu?c tính lýu l? do k?t thúc tr? chõi
+	EndReason endReason;
 
 	void checkEndGame();
 

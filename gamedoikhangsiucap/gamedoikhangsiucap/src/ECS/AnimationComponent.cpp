@@ -1,5 +1,4 @@
-﻿
-#include"AnimationComponent.h"
+﻿#include"AnimationComponent.h"
 #include"../Collision.h"
 #include"SDL_mixer.h"
 Uint32 damageEffectTimePlayer1 = 0;
@@ -15,10 +14,10 @@ void AnimationComponent::init()
 	lastFrameTime = SDL_GetTicks();
 	skillPhase = -1;
 	hitStunTime = 0;
-	
+
 
 	for (int i = 0; i < MAX_ACTIONS; ++i) {
-		actionCooldowns[i] = 0; 
+		actionCooldowns[i] = 0;
 	}
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
 		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: "
@@ -38,12 +37,12 @@ void AnimationComponent::init()
 			std::cout << "Failed to load sound effects: " << Mix_GetError() << std::endl;
 		}
 	}
-	
-	
+
+
 }
 
 void AnimationComponent::update() {
-	
+
 
 
 
@@ -97,8 +96,8 @@ void AnimationComponent::update() {
 					entity->getComponent<HealthEnergyComponent>().hasEnoughEnergy(Player1Constants::ENERGY_COST)) {
 					actionIndex = 6;
 					Mix_PlayChannel(-1, punchSound, 0);
-					
-					
+
+
 				}
 
 			}
@@ -126,8 +125,8 @@ void AnimationComponent::update() {
 				}
 			}
 		}
-	
-		
+
+
 		if (currentFrame == Player1Constants::CHARACTER_1_SPRITES[currentAction][Player1Constants::FRAME_COUNT] - 1) {
 			// Animation kết thúc, đặt thời gian hồi chiêu
 			actionCooldowns[currentAction] = currentTime + Player1Constants::CHARACTER_1_SPRITES[currentAction][Player1Constants::COOLDOWN];
@@ -262,12 +261,12 @@ void AnimationComponent::update() {
 						damageEffectTimePlayer2 = currentTime;
 						player1.getComponent<HealthEnergyComponent>().increaseEnergy(1);
 						Mix_PlayChannel(-1, hurtSound, 0);
-						
+
 
 					}
 					else {
-						player2.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage*0.3);
-						
+						player2.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage * 0.3);
+
 						player1.getComponent<HealthEnergyComponent>().increaseEnergy(1);
 					}
 				}
@@ -282,7 +281,7 @@ void AnimationComponent::update() {
 		if (entity->hasComponent<Player2Controller>()) {
 			if (Collision::AABB(player2.getComponent<SpriteComponent>().destRect,
 				player1.getComponent<SpriteComponent>().destRect)) {
-				if (damage > 0 ) {
+				if (damage > 0) {
 					if (player1.getComponent<AnimationComponent>().currentAction != 2) {
 						player1.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage);
 						damageEffectTimePlayer1 = currentTime;
@@ -291,7 +290,7 @@ void AnimationComponent::update() {
 					}
 					else {
 						player1.getComponent<HealthEnergyComponent>().tryDecreaseHealth(damage * 0.3);
-						
+
 						player2.getComponent<HealthEnergyComponent>().increaseEnergy(1);
 					}
 				}
@@ -357,9 +356,9 @@ void AnimationComponent::update() {
 
 
 	}
-	
 
-	
+
+
 }
 void AnimationComponent::loadSounds() {
 	moveSound = Mix_LoadWAV("assest/chay.wav");
@@ -389,8 +388,3 @@ void AnimationComponent::freeSounds() {
 	ChidoriSound = nullptr;
 	K_O = nullptr;
 }
-
-	
-	
-
-

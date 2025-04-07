@@ -45,12 +45,8 @@ namespace Player1Constants {
     
 }
 
-// Constants for Player 2 (Sasuke)
-namespace Player2Constants {
-    // Thông tin chung về sprite sheet
 
-    // Định nghĩa các chỉ số cho mảng CHARACTER_2_SPRITES
-     // Định nghĩa các chỉ số cho mảng CHARACTER_1_SPRITES
+namespace Player2Constants {
     enum SpriteSheetIndices {
         SRC_X = 0,
         SRC_Y = 1,
@@ -63,7 +59,6 @@ namespace Player2Constants {
         COOLDOWN = 8
     };
 
-    // Mảng 2 chiều lưu trữ thông tin về sprite sheet
     const int CHARACTER_1_SPRITES[10][9] = {
         // {SRC_X, SRC_Y, FRAME_WIDTH, FRAME_HEIGHT,SPEED, FRAME_COUNT, ENERGY_COST, DAMAGE, COOLDOWN}
             { 0  ,  0   ,    66      ,      48     , 200 ,      6     ,      0     ,   0   ,   1200   },  // CHẠY 0
@@ -80,7 +75,7 @@ namespace Player2Constants {
 
     };
 
-    // Các hằng số khác
+
     const int SPRITE_SCALE = 5;
     const int SPRITE_SPEED = 100;
 
@@ -89,9 +84,9 @@ namespace Player2Constants {
     const float TERMINAL_VELOCITY = 10.0f;
     const int MOVE_SPEED = 4;
 }
-// Global Constants
+
     namespace GlobalConstants {
-        const int SCREEN_WIDTH = 1600;
-        const int SCREEN_HEIGHT = 800;
+        const int SCREEN_WIDTH = 1400;
+        const int SCREEN_HEIGHT = 700;
         const int FPS = 60;
     };

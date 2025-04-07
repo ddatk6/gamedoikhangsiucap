@@ -18,10 +18,10 @@ public:
     int currentEnergy = 1000;
 
     SDL_Rect hpBar;
-    SDL_Rect energyBar; // dùng energyBar để hiển thị năng lượng
+    SDL_Rect energyBar;
 
     BarPosition barPos;
-    Entity* linkedEntity = nullptr; // liên kết với entity chứa HealthEnergyComponent
+    Entity* linkedEntity = nullptr;
 
     StatusBarUIComponent(BarPosition pos) : barPos(pos) {}
 

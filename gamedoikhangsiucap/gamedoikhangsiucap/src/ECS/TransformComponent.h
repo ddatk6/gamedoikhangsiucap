@@ -43,8 +43,8 @@ public:
 		position.y += velocity.y * speed;
 
 		
-		if (position.y + height * scale >= 800) {
-			position.y = 800 - height * scale;  
+		if (position.y + height * scale >= 700) {
+			position.y = 700 - height * scale;  
 			velocity.y = 0;
 			onGround = true; 
 		}
@@ -55,8 +55,8 @@ public:
 		if (position.x < 0) {
 			position.x = 0; 
 		}
-		if (position.x + width * scale > 1600) { 
-			position.x = 1600 - width * scale; 
+		if (position.x + width * scale > 1400) { 
+			position.x = 1400 - width * scale; 
 		}
 	}
 	

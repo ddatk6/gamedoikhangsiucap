@@ -24,9 +24,8 @@ public:
      void update() override {
          if (entity->hasComponent<HealthEnergyComponent>()) {
              auto& he = entity->getComponent<HealthEnergyComponent>();
-             he.updateStun();  // Cập nhật trạng thái stun trước
+             he.updateStun();  
              if (he.stunned) {
-                 // Có thể bạn muốn dừng mọi chuyển động khi bị stun
                  transform->velocity.x = 0;
                  transform->velocity.y = 0;
                  return;

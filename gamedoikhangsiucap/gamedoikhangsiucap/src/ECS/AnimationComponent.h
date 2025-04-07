@@ -22,7 +22,7 @@ public:
 private:
 	SpriteComponent* sprite;
 	TransformComponent* transform;
-	
+
 	int currentAction;
 	int currentFrame;
 	Uint32 lastFrameTime;
@@ -33,14 +33,14 @@ private:
 	static const int MAX_ACTIONS = 11;
 	Uint32 actionCooldowns[MAX_ACTIONS];
 	Uint32 hitStunTime;
-	const int HIT_STUN_DELAY = 1000; 
+	const int HIT_STUN_DELAY = 1000;
 	SDL_Texture* hitTexture;
-	 Mix_Chunk* moveSound;
-	 Mix_Chunk* cutSound;
-	 Mix_Chunk* punchSound;
-	 Mix_Chunk* hurtSound;
-	 Mix_Chunk* rasenganSound;
-	 Mix_Chunk* ChidoriSound;
-	 
-	
+	Mix_Chunk* moveSound;
+	Mix_Chunk* cutSound;
+	Mix_Chunk* punchSound;
+	Mix_Chunk* hurtSound;
+	Mix_Chunk* rasenganSound;
+	Mix_Chunk* ChidoriSound;
+
+
 };

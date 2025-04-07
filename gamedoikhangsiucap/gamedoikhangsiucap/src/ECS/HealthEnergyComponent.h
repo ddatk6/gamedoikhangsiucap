@@ -28,13 +28,12 @@ public:
         if (currentTime - lastHitTime >= hitDelay) {
             decreaseHealth(damage);
             lastHitTime = currentTime;
-            // Set trạng thái stun
+       
             stunned = true;
             stunStartTime = currentTime;
         }
     }
 
-    // Hàm update để reset trạng thái stun sau delay
     void updateStun() {
         if (stunned) {
             Uint32 currentTime = SDL_GetTicks();
@@ -52,7 +51,7 @@ public:
          if (currentEnergy >= maxEnergy) currentEnergy = maxEnergy;
      }
      bool hasEnoughEnergy(double energyCost) const {
-         return currentEnergy >= energyCost; // Trả về true nếu năng lượng đủ, ngược lại false
+         return currentEnergy >= energyCost; 
      }
 
      

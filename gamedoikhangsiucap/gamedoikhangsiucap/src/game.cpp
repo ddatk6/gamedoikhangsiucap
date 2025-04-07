@@ -1,4 +1,5 @@
-﻿#include "game.h"
+﻿
+#include "game.h"
 #include "TextureManager.h"
 #include "mapend.h"
 #include "ECS/Components.h"
@@ -9,7 +10,7 @@
 
 
 
-Map* map;
+Map * map;
 
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
@@ -38,9 +39,11 @@ SDL_Event Game::event;
 using namespace std;
 
 Game::Game()
-{}
+{
+}
 Game::~Game()
-{}
+{
+}
 
 void Game::showOpeningImage() {
 	// Tải texture của hình ảnh mở đầu
@@ -77,7 +80,7 @@ void Game::showOpeningImage() {
 
 	// Giải phóng texture sau khi hiển thị xong
 	SDL_DestroyTexture(openingTexture);
-	
+
 }
 void Game::checkEndGame() {
 	if (player1.getComponent<HealthEnergyComponent>().currentHP <= 0) {
@@ -150,8 +153,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	showOpeningImage();
 	map = new Map(renderer, "assest/mapend.png");
-	player1.addComponent<TransformComponent>(100, 100 , 50, 64);
-	player1.addComponent<SpriteComponent>("assest/naruto.png", 0, 250, 8,200 );
+	player1.addComponent<TransformComponent>(100, 100, 50, 64);
+	player1.addComponent<SpriteComponent>("assest/naruto.png", 0, 250, 8, 200);
 	player1.addComponent<Player1Controller>();
 	player1.addComponent<GravityComponent>();
 	player1.addComponent<AnimationComponent>();
@@ -159,7 +162,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 
 	player2.addComponent<TransformComponent>(1400, 100, 34, 64);
-	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200 );
+	player2.addComponent<SpriteComponent>("assest/sasuke.png", 0, 50, 12, 200);
 	player2.addComponent<Player2Controller>();
 	player2.addComponent<GravityComponent>();
 	player2.addComponent<AnimationComponent>();
@@ -169,7 +172,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	uiPlayer1.addComponent<StatusBarUIComponent>(LEFT);
 	uiPlayer1.getComponent<StatusBarUIComponent>().linkedEntity = &player1;
-	
+
 
 
 	uiPlayer2.addComponent<StatusBarUIComponent>(RIGHT);
@@ -186,7 +189,7 @@ void Game::initAudio() {
 	}
 
 	// Load nhạc nền từ file (đảm bảo file tồn tại tại đường dẫn này)
-	 bgMusic = Mix_LoadMUS("assest/naruto.mp3");
+	bgMusic = Mix_LoadMUS("assest/naruto.mp3");
 	if (bgMusic == nullptr) {
 		std::cout << "Không load được nhạc nền! Lỗi: " << Mix_GetError() << std::endl;
 	}
@@ -205,7 +208,7 @@ void Game::cleanAudio() {
 void Game::handleEvents()
 {
 
-	
+
 	SDL_PollEvent(&event);
 	switch (event.type) {
 	case SDL_QUIT:
@@ -223,9 +226,9 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 	checkEndGame();
-	
+
 	if (gameState == GAME_OVER) {
-		
+
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
@@ -249,9 +252,9 @@ void Game::update()
 
 	// Logic bình thường
 
-	
 
-	
+
+
 }
 
 void Game::render()
@@ -259,15 +262,15 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	map->DrawMap();
 	manager.draw();
-	
-	
+
+
 	if (gameState == GAME_OVER) {
 		if (!koSoundPlayed) {
 			auto& animationComponent = player1.getComponent<AnimationComponent>();
 			Mix_PlayChannel(-1, animationComponent.K_O, 0);
 			koSoundPlayed = true;
 		}
-		
+
 		if (endReason == PLAYER1_DEFEATED) {
 			showEndingImage(renderer, "assest/player2win.png");
 		}

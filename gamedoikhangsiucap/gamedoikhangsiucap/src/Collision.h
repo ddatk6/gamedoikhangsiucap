@@ -5,7 +5,6 @@
 
 class Collision {
 public:
-    // Ki?m tra va ch?m AABB gi?a 2 SDL_Rect
     static bool AABB(const SDL_Rect& recA, const SDL_Rect& recB) {
         return !(recA.x + recA.w < recB.x ||
             recB.x + recB.w < recA.x ||

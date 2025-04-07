@@ -8,23 +8,23 @@ C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\Transfor
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(23,22): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/ECS/AnimationComponent.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(47,26): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(46,26): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/ECS/AnimationComponent.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(51,27): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(50,27): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/ECS/AnimationComponent.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(123,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(125,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(175,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(177,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(193,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(195,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(261,71): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(269,77): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(287,71): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(293,78): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  TextureManager.cpp
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(122,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(124,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(174,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(176,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(192,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(194,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(260,71): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(268,78): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(286,71): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\AnimationComponent.cpp(292,78): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  main.cpp
   game.cpp
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\TransformComponent.h(47,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'src/game.cpp')
@@ -35,29 +35,29 @@ C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\Transfor
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(23,22): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/game.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(47,26): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(46,26): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/game.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(51,27): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\HealthEnergyComponent.h(50,27): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
   (compiling source file 'src/game.cpp')
   
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(49,16): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(49,16): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(49,16): warning C4566: character represented by universal-character-name '\u00EC' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(49,16): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(49,16): warning C4566: character represented by universal-character-name '\u1EA7' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(132,15): warning C4566: character represented by universal-character-name '\u00E3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(132,15): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(182,16): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(182,16): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(182,16): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(182,16): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(52,16): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(52,16): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(52,16): warning C4566: character represented by universal-character-name '\u00EC' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(52,16): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(52,16): warning C4566: character represented by universal-character-name '\u1EA7' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(135,15): warning C4566: character represented by universal-character-name '\u00E3' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(135,15): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(185,16): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1258)
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(185,16): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(191,16): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(191,16): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(191,16): warning C4566: character represented by universal-character-name '\u1EC1' cannot be represented in the current code page (1258)
-C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(191,16): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(185,16): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(185,16): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(188,16): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(188,16): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(194,16): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(194,16): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(194,16): warning C4566: character represented by universal-character-name '\u1EC1' cannot be represented in the current code page (1258)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(194,16): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1258)
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:         with
 C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28): warning C4244:         [
@@ -66,14 +66,17 @@ C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70
   (compiling source file 'src/game.cpp')
       C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\ECS\ECS.h(70,28):
       the template instantiation context (the oldest one first) is
-          C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(153,10):
+          C:\Users\hi!\source\repos\gamedoikhangsiucap\gamedoikhangsiucap\src\game.cpp(156,10):
           see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int>(int &&,int &&,int &&,int &&)' being compiled
           with
           [
               T=TransformComponent
           ]
   
-  main.cpp
   mapend.cpp
+  TextureManager.cpp
+  Vector2D.cpp
   Generating Code...
   gamedoikhangsiucap.vcxproj -> C:\Users\hi!\source\repos\gamedoikhangsiucap\x64\Debug\gamedoikhangsiucap.exe
+  gamedoikhangsiucap.vcxproj -> C:\Users\hi!\source\repos\gamedoikhangsiucap\x64\Debug\gamedoikhangsiucap.pdb (Partial -> Full PDB)
+C:\Users\hi!\source\repos\gamedoikhangsiucap\x64\Debug\gamedoikhangsiucap.pdb : fatal error CMF1107: input PDB file is not generated by /DEBUG:fastlink
